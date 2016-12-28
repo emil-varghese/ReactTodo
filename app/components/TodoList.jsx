@@ -7,6 +7,14 @@ var TodoList = React.createClass({
     var {todos} = this.props;
 
     var renderTodos = () => {
+      
+      if (todos.length === 0) {
+        console.log('here2');
+        return(
+          <p className="container__message">Nothing to do</p>
+        );
+      }
+
       return todos.map( (todo) => {
         return (
             <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/> //Spread operator. Gets all properties of object

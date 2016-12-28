@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 function add (a,b) {
   return a + b;
 }
@@ -26,3 +28,10 @@ var final1 = [...final,...names];
 final1.forEach(function(name){
   console.log('Hi' + name);
 })
+
+console.log(moment().format());
+var now = moment();
+console.log('Current timestamp ', now.unix());
+var timestamp = 1482951138;
+var currentMoment = moment.unix(timestamp);
+console.log('Current moment ',currentMoment.format());
