@@ -12,10 +12,10 @@ export var toggleShowCompleted = () => {
 };
 
 export var addTodo = (text) => {
-  return (
+  return {
     type: 'ADD_TODO',
     text
-  );
+  };
 };
 
 export var toggleTodo = (id) => {
