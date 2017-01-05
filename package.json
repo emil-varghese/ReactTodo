@@ -37,6 +37,7 @@
     "node-sass": "",
     "node-uuid": "^1.4.7",
     "react-addons-test-utils": "^0.14.7",
+    "react-redux": "^4.4.1",
     "redux": "^3.3.1",
     "sass-loader": "",
     "script-loader": "^0.6.1",
