@@ -1,6 +1,8 @@
 var $ = require('jquery');
 
 module.exports = {
+  //Commented when using firebase. Not using localStorage any more.
+  /*
   setTodos: function (todos) {
     if ($.isArray(todos)) {
       localStorage.setItem('todos',JSON.stringify(todos)); //only strings can be stored
@@ -22,6 +24,7 @@ module.exports = {
       return [];
     }
   },
+ */
 
   filterTodos: function(todos,showCompleted,searchText) {
     var filterTodos = todos;

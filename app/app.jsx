@@ -10,6 +10,7 @@ var TodoApp = require('TodoApp');
 var actions = require('actions');
 var store = require('configureStore').configure();
 
+/*
 store.subscribe (() => {
   var state = store.getState();
   console.log('New State' , state);
@@ -22,10 +23,14 @@ store.subscribe (() => {
   //reducer.
   TodoApi.setTodos(state.todos);
 });
-
+*/
 //Fetches the todos in localStorage. This was in the getInitialState in TodoApp
+/*
 var initialTodos = TodoApi.getTodos();
 store.dispatch(actions.addTodos(initialTodos));
+*/
+// Added from Firebase
+store.dispatch(actions.startAddTodos());
 
 // Load foundation
 $(document).foundation();

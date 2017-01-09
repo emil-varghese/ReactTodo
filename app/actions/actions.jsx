@@ -52,6 +52,27 @@ export var addTodos = (todos) => {
   }
 };
 
+export var startAddTodos = () => {
+  return (dispatch, getState) => {
+
+    var todosRef = firebaseRef.child('todos');
+    todosRef.once('value').then ( (snapshot) => {
+      var todos = snapshot.val() || {};
+      var parsedTodos = [];
+
+      Object.keys(todos).forEach( (todoId) => {
+        parsedTodos.push({
+          id: todoId,
+          ...todos[todoId]
+        });
+      });
+
+      dispatch (addTodos(parsedTodos));
+    })
+
+  };
+};
+
 export var updateTodo = (id, updates) => {
   return {
     type: 'UPDATE_TODO',
@@ -66,7 +87,7 @@ export var startToggleTodo = (id, completed) => {
 
     var updates = {
       completed,
-      completedAt: completed ? moment().unix() : null 
+      completedAt: completed ? moment().unix() : null
     };
 
     return todoRef.update(updates).then( () => {
