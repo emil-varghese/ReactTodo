@@ -6,7 +6,7 @@ var actions = require('actions');
 export var Todo = React.createClass({
 
   handleCheckbox: function() {
-      this.props.dispatch(actions.toggleTodo(this.props.id));
+      this.props.dispatch(actions.startToggleTodo(this.props.id,!this.props.completed));
       //this.props.onToggle(this.props.id);
   },
 
