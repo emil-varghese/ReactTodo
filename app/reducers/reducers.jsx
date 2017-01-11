@@ -33,6 +33,8 @@ export var todosReducer = (state = [], action) => {
         ...state,
         ...action.todos
       ];
+    case 'LOGOUT':
+      return [];
     case 'UPDATE_TODO':
       return state.map( (todo) => {
         if (todo.id === action.id) {
@@ -46,5 +48,19 @@ export var todosReducer = (state = [], action) => {
       });
     default:
       return state;
+  };
+};
+
+export var authReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'LOGIN':
+      return {
+          uid: action.uid
+      };
+    case 'LOGOUT':
+      return {};
+    default:
+      return state;
+
   };
 };

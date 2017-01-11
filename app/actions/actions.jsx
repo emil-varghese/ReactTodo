@@ -32,8 +32,9 @@ export var startAddTodo = (text) => {
       completedAt: null
     };
 
+    var uid = getState().auth.uid;
     //This adds to the database.
-    var todoRef = firebaseRef.child('todos').push(todo);
+    var todoRef = firebaseRef.child(`users/${uid}/todos`).push(todo);
 
     //Once added to databse, this is dispatched to addTodo and used to add to Store
     return todoRef.then( () => {
@@ -55,7 +56,10 @@ export var addTodos = (todos) => {
 export var startAddTodos = () => {
   return (dispatch, getState) => {
 
-    var todosRef = firebaseRef.child('todos');
+    var uid = getState().auth.uid;
+
+    var todosRef = firebaseRef.child(`users/${uid}/todos`);
+
     todosRef.once('value').then ( (snapshot) => {
       var todos = snapshot.val() || {};
       var parsedTodos = [];
@@ -83,7 +87,10 @@ export var updateTodo = (id, updates) => {
 
 export var startToggleTodo = (id, completed) => {
   return (dispatch,getState) => {
-    var todoRef  = firebaseRef.child(`todos/${id}`);
+
+    var uid = getState().auth.uid;
+
+    var todoRef  = firebaseRef.child(`users/${uid}/todos/${id}`);
 
     var updates = {
       completed,
@@ -100,6 +107,9 @@ export var startLogin = () => {
   return (dispatch,getState) => {
     firebase.auth().signInWithPopup(githubProvider).then ( (result) => {
       console.log('Auth worked', result);
+
+      //Moved this to the app.jsx. This will only be called if startLogin is dispatched
+      //dispatch(onLogin(result.user.uid));
     }, (error) => {
       console.log('Unable to Auth',error);
     });
@@ -110,8 +120,25 @@ export var startLogout = () => {
   return (dispatch,getState) => {
     firebase.auth().signOut().then ( () => {
       console.log('Logged Out');
+
+      //Moved this to the app.jsx. This will only be called if startLogin is dispatched
+      //dispatch(onLogout());
     }, (error) => {
       console.log('Logout Failed',error);
     });
   };
-}
+};
+
+
+export var onLogin = (uid) => {
+  return {
+    type: 'LOGIN',
+    uid
+  };
+};
+
+export var onLogout = () => {
+  return {
+    type: 'LOGOUT'
+  };
+};
